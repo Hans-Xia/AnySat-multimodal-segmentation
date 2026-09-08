@@ -70,3 +70,8 @@ The experiments showed that high-resolution aerial imagery provides the stronges
 - NumPy / pandas
 - Matplotlib
 
+## Project Context
+
+MSc thesis project at Budapest University of Technology and Economics.
+
+A journal manuscript based on this work is currently in preparation.
