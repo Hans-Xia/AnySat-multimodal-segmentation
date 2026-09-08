@@ -14,7 +14,7 @@ The project adapts the pretrained **AnySat** foundation model to a 15-class land
 The main experiments investigate:
 
 - LoRA-based parameter-efficient fine-tuning
-- Native, early, and late multimodal fusion
+- Feature-level, early, and late multimodal fusion
 - DenseCRF spatial refinement
 - Modality and channel importance analysis
 
@@ -35,7 +35,7 @@ The model uses multiple Earth observation sources:
 
 Three multimodal fusion strategies were compared:
 
-- **Native AnySat fusion** — modality-specific projection followed by shared multimodal encoding
+- **Feature-level fusion with attention** — modality-specific projection followed by shared multimodal encoding
 - **Strict early fusion** — modalities compressed before the common encoder
 - **Late token-gated fusion** — modalities encoded separately and fused using learnable gates
 
@@ -45,12 +45,12 @@ The AnySat backbone was adapted using a two-stage fine-tuning strategy with **Lo
 
 | Method | mIoU | Mean F1 |
 | --- | ---: | ---: |
-| Native AnySat | **0.5964** | **0.7301** |
+| Feature-level fusion | **0.5964** | **0.7301** |
 | Late fusion | 0.5947 | 0.7282 |
 | Strict early fusion | 0.5218 | 0.6654 |
 | Native AnySat + DenseCRF | **0.6028** | **0.7349** |
 
-Late fusion achieved performance close to the native AnySat architecture, while strict early fusion caused a noticeable performance drop.
+Late fusion achieved performance close to the feature-level fusion, and both are superior to AnySat's 0.556 mIoU on the FLAIR original dataset. However, the later fusion calculation in the experiment is more costly, while the strict early fusion shows a significant performance decline.
 
 DenseCRF provided a modest improvement in spatial consistency and overall segmentation accuracy.
 
@@ -93,7 +93,7 @@ A journal manuscript based on this work is currently in preparation.
 主要研究内容包括：
 
 - 基于 LoRA 的参数高效微调
-- Native、Early 和 Late 三种多模态融合策略
+- 特征级注意力融合、早期融合 和 后期融合 三种多模态融合策略
 - DenseCRF 空间后处理
 - 模态与通道重要性分析
 
@@ -114,7 +114,7 @@ A journal manuscript based on this work is currently in preparation.
 
 项目比较了三种多模态融合策略：
 
-- **AnySat 原生融合**：各模态先独立投影，再进入共享多模态编码过程
+- **特征级注意力融合**：各模态先独立投影，再进入共享多模态编码过程
 - **严格早期融合**：不同模态在进入公共编码器前压缩为共享表示
 - **后期 Token 门控融合**：各模态先独立编码，再通过可学习门控机制进行融合
 
@@ -124,12 +124,12 @@ AnySat 主干网络采用两阶段训练方式，并使用 **LoRA** 实现参数
 
 | 方法 | mIoU | Mean F1 |
 | --- | ---: | ---: |
-| AnySat 原生融合 | **0.5964** | **0.7301** |
+| 特征级注意力融合 | **0.5964** | **0.7301** |
 | 后期融合 | 0.5947 | 0.7282 |
 | 严格早期融合 | 0.5218 | 0.6654 |
 | AnySat + DenseCRF | **0.6028** | **0.7349** |
 
-后期融合的表现与 AnySat 原生架构接近，而严格早期融合出现了更明显的性能下降。
+后期融合的表现与 特征级融合 接近，二者皆优于 AnySat 在FLAIR原数据集上的 0.556 mIoU。但实验中后期融合计算花费更高，而严格早期融合则出现了明显的性能下降。
 
 DenseCRF 能够小幅提升空间一致性以及整体分割性能。
 
